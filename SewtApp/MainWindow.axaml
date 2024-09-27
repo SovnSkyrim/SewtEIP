@@ -1,1 +1,19 @@
-<Window xmlns="https://github.com/avaloniaui"        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        x:Class="SewtApp.MainWindow"        Title="SewtApp"        Width="800"        Height="600">    <StackPanel>        <TextBlock Text="Bienvenue dans SewtApp"                   FontSize="24"                   HorizontalAlignment="Center" />        <Image x:Name="MainImage" Width="400" Height="400" HorizontalAlignment="Center" />        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">            <Button Click="Open_Click" Content="Ouvrir" />            <Button Click="Save_Click" Content="Sauvegarder" />            <Button Click="Exit_Click" Content="Quitter" />        </StackPanel>    </StackPanel></Window>
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="SewtApp.MainWindow"
+        Title="SewtApp"
+        Width="800" Height="600">
+  <DockPanel>
+    <!-- Barre d'outils -->
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="#333">
+      <Button x:Name="OpenButton" Content="Ouvrir" Margin="5" />
+      <Button x:Name="SaveButton" Content="Sauvegarder" Margin="5" />
+      <Button x:Name="ExportButton" Content="Exporter" Margin="5" />
+    </StackPanel>
+
+    <!-- Zone principale -->
+    <Grid>
+      <Image x:Name="DisplayedImage"/>
+    </Grid>
+  </DockPanel>
+</Window>
