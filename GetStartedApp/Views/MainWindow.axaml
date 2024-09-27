@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GetStartedApp.ViewModels"
+        x:Class="GetStartedApp.Views.MainWindow"
+        Title="GetStartedApp"
+        Icon="/Assets/avalonia-logo.ico">
+
+    <StackPanel>
+        <Button HorizontalAlignment="Center" Name="PictureSelection" Click="PictureSelectionFunction">Select an image!</Button>
+        
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                      Name="ImageScrollViewer" PointerWheelChanged="OnPointerWheelChangedMethod">
+            <Panel>
+                <Rectangle Height="300" Width="300" Fill="LightGray"/>
+                <Image Name="SelectedImage" Margin="20" Stretch="None"/>
+            </Panel>
+        </ScrollViewer>
+    </StackPanel>
+</Window>
