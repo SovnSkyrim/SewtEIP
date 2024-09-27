@@ -2,13 +2,9 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Layout;
-using Avalonia.VisualTree;
 using Avalonia;
 
 namespace GetStartedApp.Views
@@ -16,6 +12,9 @@ namespace GetStartedApp.Views
     public partial class MainWindow : Window
     {
         private double _scaleFactor = 1.0; // Default scale factor
+        private double _rotationAngle = 0.0; // Default rotation angle
+        private Point _startPanPoint; // For tracking panning
+        private TranslateTransform _translateTransform = new TranslateTransform(); // For panning
 
         public MainWindow()
         {
@@ -46,60 +45,83 @@ namespace GetStartedApp.Views
                 {
                     var bitmap = new Bitmap(imagePath);
                     SelectedImage.Source = bitmap;
-
-                    // Reset zoom on new image load
                     _scaleFactor = 1.0;
-                    UpdateImageScale();
+                    _rotationAngle = 0.0;
+                    _translateTransform = new TranslateTransform();
+                    UpdateImageTransform();
                 }
             }
         }
 
         private void OnPointerWheelChangedMethod(object sender, PointerWheelEventArgs e)
         {
-            // Check if Ctrl key is pressed for zooming
+            var scrollViewer = this.FindControl<ScrollViewer>("ImageScrollViewer");
             if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
             {
-                // Zoom in or out based on the scroll delta
-                if (e.Delta.Y > 0)
-                {
-                    _scaleFactor *= 1.1; // Zoom in
-                }
-                else
-                {
-                    _scaleFactor /= 1.1; // Zoom out
-                }
-
-                // Update the image scale
-                UpdateImageScale();
-
-                // Prevent vertical scrolling
+                var position = e.GetPosition(SelectedImage);
+                _scaleFactor *= (e.Delta.Y > 0) ? 1.1 : 0.9;
+                SelectedImage.RenderTransformOrigin = new RelativePoint(position, RelativeUnit.Absolute);
+                UpdateImageTransform();
                 e.Handled = true;
             }
             else
             {
-                // Allow vertical scrolling if Ctrl is not pressed
-                var scrollViewer = this.FindControl<ScrollViewer>("ImageScrollViewer");
+                // Allow vertical scrolling when Ctrl is not pressed
                 if (scrollViewer != null)
                 {
-                    double newOffsetY = scrollViewer.Offset.Y - e.Delta.Y; // Adjust based on scroll delta
+                    // Adjust based on scroll delta
+                    double newOffsetY = scrollViewer.Offset.Y - e.Delta.Y * 50; // Increase delta sensitivity as needed
                     scrollViewer.Offset = new Point(scrollViewer.Offset.X, newOffsetY);
+                    e.Handled = true;
                 }
             }
         }
 
-        private void UpdateImageScale()
+        private void OnPointerPressed(object sender, PointerPressedEventArgs e)
         {
-            if (SelectedImage.Source is Bitmap)
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             {
-                // Apply the scale transform
-                SelectedImage.RenderTransform = new ScaleTransform(_scaleFactor, _scaleFactor);
-
-                // Optional: Set the image's alignment correctly
-                SelectedImage.HorizontalAlignment = HorizontalAlignment.Center;
-                SelectedImage.VerticalAlignment = VerticalAlignment.Center;
+                _startPanPoint = e.GetPosition(this);
+                SelectedImage.PointerMoved += OnPointerMoved;
+                SelectedImage.PointerReleased += OnPointerReleased;
             }
         }
 
+        private void OnPointerMoved(object sender, PointerEventArgs e)
+        {
+            var currentPoint = e.GetPosition(this);
+            var offsetX = currentPoint.X - _startPanPoint.X;
+            var offsetY = currentPoint.Y - _startPanPoint.Y;
 
+            _translateTransform.X += offsetX;
+            _translateTransform.Y += offsetY;
+
+            UpdateImageTransform();
+            _startPanPoint = currentPoint;
+        }
+
+        private void OnPointerReleased(object sender, PointerReleasedEventArgs e)
+        {
+            SelectedImage.PointerMoved -= OnPointerMoved;
+            SelectedImage.PointerReleased -= OnPointerReleased;
+        }
+
+        private void UpdateImageTransform()
+        {
+            // Combine translation, rotation, and scaling into a TransformGroup
+            var transformGroup = new TransformGroup();
+            transformGroup.Children.Add(_translateTransform); // Panning
+            transformGroup.Children.Add(new RotateTransform(_rotationAngle)); // Rotation
+            transformGroup.Children.Add(new ScaleTransform(_scaleFactor, _scaleFactor)); // Zoom
+
+            SelectedImage.RenderTransform = transformGroup;
+        }
+
+        // Call this method when you want to rotate the image (e.g., via a button click)
+        private void RotateImage(double angle)
+        {
+            _rotationAngle += angle;
+            UpdateImageTransform();
+        }
     }
 }

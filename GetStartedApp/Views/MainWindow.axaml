@@ -5,15 +5,24 @@
         Title="GetStartedApp"
         Icon="/Assets/avalonia-logo.ico">
 
-    <StackPanel>
-        <Button HorizontalAlignment="Center" Name="PictureSelection" Click="PictureSelectionFunction">Select an image!</Button>
-        
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Button row -->
+            <RowDefinition Height="*"/> <!-- Image area -->
+        </Grid.RowDefinitions>
+
+        <!-- Button to select an image, in the first row -->
+        <Button HorizontalAlignment="Center" Name="PictureSelection" Click="PictureSelectionFunction" 
+                Grid.Row="0">
+            Select an image!
+        </Button>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-                      Name="ImageScrollViewer" PointerWheelChanged="OnPointerWheelChangedMethod">
-            <Panel>
-                <Rectangle Height="300" Width="300" Fill="LightGray"/>
-                <Image Name="SelectedImage" Margin="20" Stretch="None"/>
-            </Panel>
+                      Name="ImageScrollViewer" PointerWheelChanged="OnPointerWheelChangedMethod"
+                      Grid.Row="1">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Name="SelectedImage" Margin="20" Stretch="None" 
+                       PointerPressed="OnPointerPressed" />
+            </Grid>
         </ScrollViewer>
-    </StackPanel>
+    </Grid>
 </Window>
