@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SewtApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+115df689e9adb654eb07052cbf7c97e7f1bdac4e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4cc9c7c9e0db4db273173eb58ee365954d732dd9")]
 [assembly: System.Reflection.AssemblyProductAttribute("SewtApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SewtApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
