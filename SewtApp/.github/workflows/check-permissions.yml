@@ -1,0 +1,33 @@
+name: Check Repository Permissions
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  check-permissions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check repository permissions
+        run: |
+          echo "Checking repository permissions..."
+          
+          # Use the GitHub API to check permissions
+          PERMISSION=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}" | jq -r '.permissions')
+          
+          echo "Permissions: $PERMISSION"
+
+          # Check if the user has write access
+          if [[ $(echo $PERMISSION | jq -r '.admin') == "true" || $(echo $PERMISSION | jq -r '.push') == "true" ]]; then
+            echo "You have the required permissions to use this repository."
+          else
+            echo "You do NOT have the required permissions to use this repository."
+            exit 1
+          fi
