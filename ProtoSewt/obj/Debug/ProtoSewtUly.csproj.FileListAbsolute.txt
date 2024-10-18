@@ -81,3 +81,7 @@ C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decott
 C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decottignies\ProtoSewt\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decottignies\ProtoSewt\bin\Debug\System.ValueTuple.xml
 C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decottignies\ProtoSewt\obj\Debug\ProtoSew.0E8F39CF.Up2Date
+C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decottignies\ProtoSewt\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decottignies\ProtoSewt\bin\Debug\System.Text.Json.dll
+C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decottignies\ProtoSewt\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\Odyce\source\repos\EpitechPromo2026\G-EIP-700-lil-7-1-eip-ulysse.decottignies\ProtoSewt\bin\Debug\System.Text.Json.xml

@@ -1,4 +1,6 @@
-﻿namespace ProtoSewt
+﻿using System.Windows.Forms;
+
+namespace ProtoSewt
 {
     partial class Form1
     {
@@ -31,6 +33,8 @@
             this.imgUpldBtn = new System.Windows.Forms.Button();
             this.imgUplddDisp = new System.Windows.Forms.PictureBox();
             this.txtXtrBtn = new System.Windows.Forms.Button();
+            this.txtBoxRes = new System.Windows.Forms.TextBox();
+            this.listBoxFonts = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgUplddDisp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +67,30 @@
             this.txtXtrBtn.UseVisualStyleBackColor = true;
             this.txtXtrBtn.Click += new System.EventHandler(this.txtXtrBtn_Click);
             // 
+            // txtBoxRes
+            // 
+            this.txtBoxRes.Location = new System.Drawing.Point(258, 107);
+            this.txtBoxRes.Multiline = true;
+            this.txtBoxRes.Name = "txtBoxRes";
+            this.txtBoxRes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtBoxRes.Size = new System.Drawing.Size(229, 293);
+            this.txtBoxRes.TabIndex = 3;
+            // 
+            // listBoxFonts
+            // 
+            this.listBoxFonts.FormattingEnabled = true;
+            this.listBoxFonts.Location = new System.Drawing.Point(654, 163);
+            this.listBoxFonts.Name = "listBoxFonts";
+            this.listBoxFonts.Size = new System.Drawing.Size(120, 95);
+            this.listBoxFonts.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1197, 519);
+            this.Controls.Add(this.listBoxFonts);
+            this.Controls.Add(this.txtBoxRes);
             this.Controls.Add(this.txtXtrBtn);
             this.Controls.Add(this.imgUplddDisp);
             this.Controls.Add(this.imgUpldBtn);
@@ -75,6 +98,7 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.imgUplddDisp)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -83,6 +107,10 @@
         private System.Windows.Forms.Button imgUpldBtn;
         private System.Windows.Forms.PictureBox imgUplddDisp;
         private System.Windows.Forms.Button txtXtrBtn;
+        private System.Windows.Forms.TextBox txtBoxRes;
+        private ListBox listBoxFonts;
+
+        public ScrollBars Vertical { get; private set; }
     }
 }
 
